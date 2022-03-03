@@ -1,6 +1,6 @@
 /*Adding the sections to the list items*/
 const sections = document.querySelectorAll('section');
-  let num = document.querySelectorAll('section').length ;
+  let num = sections.length ;
 document.addEventListener('DOMContentLoaded' , function(){
 
   const Ulist = document.querySelector('#navbar__list');
@@ -20,24 +20,22 @@ document.addEventListener('DOMContentLoaded' , function(){
       });
     };
 });
-
-/*Adding your-active-class to the viewed section*/
-document.addEventListener('scroll' , function(){
-   for(let z of sections){
-    let dimensions = z.getBoundingClientRect();
-    let isInViewport = dimensions.top >= 0 &&
-            dimensions.left >= 0 &&
-            dimensions.right <=  (window.innerWidth || document.documentElement.clientWidth)  &&
-           dimensions.bottom <= (window.innerHeight || document.documentElement.clientHeight) ||
-           dimensions.bottom >= (window.innerHeight || document.documentElement.clientHeight)
-            ;
-    if( isInViewport == true ){
-          z.classList.add('your-active-class');
-      /*Highlighting the section in view*/
-          z.style.cssText ='box-shadow: 10px 10px 0px #990000; top:-5px ; left:-5px';
-    }else{
-          z.classList.remove('your-active-class');
-          z.style.cssText =  'box-shadow: none; top:0 ; left:0';
-    }
-};
+/*Adding your-active-class to the viewed section and highlighting the viewed section*/
+function isInView(el){
+  const top = el.getBoundingClientRect().top;
+  return top > 0 && top <= 300;
+}
+window.addEventListener("scroll", function(){
+  sections.forEach(section =>{
+     const anchor = document.querySelector(`a[href="#${section.id}"]`)
+    if(isInView(section)){
+     section.classList.add("your-active-class");
+    anchor.classList.add("active");
+    section.style.cssText ='box-shadow: 10px 10px 0px #990000; top:-5px ; left:-5px';
+   }else{
+    section.classList.remove("your-active-class");
+    anchor.classList.remove("active");
+    section.style.cssText =  'box-shadow: none; top:0 ; left:0';
+ }
+})
 });

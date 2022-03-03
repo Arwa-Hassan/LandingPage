@@ -28,15 +28,22 @@ li {
 }
 li :hover{
   background-color: #ff3300;
-    color: #fff2cc;
+  color: #fff2cc;
 }
-a{
+a {
   text-decoration: none;
   color: #ff3300;
   height: 100%;
 }
+a:active ,
+a.active {
+     text-decoration: none;
+     background-color: #ff3300;
+     color: #fff2cc;
+}
 nav {
-  position:sticky;
+  position:fixed;
+  width: 100% ;
 }
 .main__hero{
   color: #ff3300 ;
